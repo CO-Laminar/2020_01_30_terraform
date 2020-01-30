@@ -31,6 +31,17 @@ resource "aws_instance" "web" {
   ]
 }
 
+resource "aws_db_instance" "web_db" {
+  allocated_storage = 8
+  engine = "mysql"
+  engine_version = "5.7.22"
+  instance_class = "db.t2.micro"
+  username = "admin"
+  password = "password"
+  skip_final_snapshot = true
+}
+
+
 // old version
 resource "aws_key_pair" "web_admin" {
   key_name = "web_admin"
