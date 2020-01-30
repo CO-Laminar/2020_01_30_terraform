@@ -8,4 +8,4 @@ source : https://www.44bits.io/ko/post/terraform_introduction_infrastrucute_as_c
 - 네 번째 이터레이션: RDS 인스턴스 정의 -> Engine version(5.7.22), Password 설정 필요
 
 [Example 1]
-- Create VPC, 2 subnets(public/private), 1 internet gateway, 1 NAT gateway, 1 instance
+- Create VPC, 4 subnets(2 public/ 2 private), 1 internet gateway, 1 NAT gateway, 2 instance (1 public / 1 private), 1 ALB, 2 Security group
