@@ -8,6 +8,7 @@ resource "aws_key_pair" "web_admin" {
 resource "aws_vpc" "terra_VPC" {
   cidr_block = "20.0.0.0/16"
   enable_dns_hostnames = "true" 
+  enable_dns_support = "true"
   
   tags = {
     Name = "terra_VPC"
@@ -120,8 +121,8 @@ resource "aws_route_table_association" "pri_route_association2" {
 }
 
 resource "aws_security_group" "pri_sg" {
-  name = "SSH, HTTP"
-  description = "Allow SSH, HTTP port from all"
+  name = "SSH, HTTP, HTTPS"
+  description = "Allow SSH, HTTP, HTTPS port from all"
   vpc_id = aws_vpc.terra_VPC.id
   ingress {
     from_port = 22
@@ -135,17 +136,41 @@ resource "aws_security_group" "pri_sg" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  ingress {
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
 }
 
 resource "aws_security_group" "alb_sg" {
-  name = "HTTP"
-  description = "Allow HTTP port from all"
+  name = "HTTP, HTTPS"
+  description = "Allow HTTP, HTTPS port from all"
   vpc_id = aws_vpc.terra_VPC.id
   ingress {
     from_port = 80
     to_port = 80
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
   }
 }
 

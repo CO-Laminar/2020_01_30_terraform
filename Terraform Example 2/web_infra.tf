@@ -1,5 +1,3 @@
-# Line 10 : Recommended for now to specify boolean values for variables as the strings "true" and "false" 
-
 resource "aws_key_pair" "web_admin" {
   key_name = "web_admin"
   public_key = file("~/.ssh/web_admin.pub")
@@ -72,6 +70,12 @@ resource "aws_security_group" "pub_sg" {
     to_port = 443
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
   }
 }
 
