@@ -11,7 +11,7 @@ source : https://www.44bits.io/ko/post/terraform_introduction_infrastrucute_as_c
 - Create VPC, 4 subnets(2 public/ 2 private), 1 internet gateway, 1 NAT gateway, 2 instance (1 public / 1 private), 1 ALB, 2 Security group
 - Nginx install
 
-* Be care
+*** Be care
 - Security group -> egress (egress is not default value)
 - ALB target group -> name (only alphanumeric characters and hyphens allowed in "name")
 
@@ -28,6 +28,25 @@ source3 : https://jojoldu.tistory.com/438
 
 [Tutorial]
 
-* 시작하기 전
+*** 시작하기 전
 - VPC, Subnet(public), Security Group, Instance, Internet gateway 각각 1개씩 있다고 가정(Server)
 - Terraform으로 실습 환경 생성하기 (기존의 Subnet 1개, Security group(ICMP, SSH, HTTP, HTTPS) 1개를 적용한 2대의 Instance(Host) 생성)
+
+*** 주요 내용
+- Server Instance에서 2대의 Host Instance에 SSH 접속할 수 있도록 authroized keys 추가 (생성 후 추가하였음)
+- 1대의 Server에서 Ansible을 설치 후 2대의 Host Instance에 새로운 유저 추가
+- 비밀번호 변경 및 추가한 유저에 권한 부여(site.yml)
+
+
+source : https://blog.naver.com/alice_k106/221333208746
+
+[Install nginx]
+- Tutorial에서 생성한 2대의 Host Instance에 Nginx 설치(nginx.yml)
+
+[Example 1]
+- 디버그 모듈을 활용(debug.yml)
+
+source : https://november11tech.tistory.com/112?category=297380
+
+[Example 2]
+- 변수 받기(var.yml)
