@@ -18,7 +18,7 @@ source : https://www.44bits.io/ko/post/terraform_introduction_infrastrucute_as_c
 [Example 2]
 - Simple version of Exapmle 1 for test
 - Create VPC, 1 Subnets, 1 Internet gateway, 1 Instance, 1 Security group
-
+------------------------------
 
 # 2020_01_31_Ansible
 
