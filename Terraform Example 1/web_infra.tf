@@ -174,14 +174,6 @@ resource "aws_security_group" "alb_sg" {
   }
 }
 
-resource "aws_lb" "ALB" {
-  name               = "ALB"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = [aws_subnet.terra_public_subnet1.id, aws_subnet.terra_public_subnet2.id]
-}
-
 resource "aws_instance" "bastion" {
   ami           = "ami-05c64f7b4062b0a21"
   instance_type = "t2.micro"
@@ -205,8 +197,47 @@ resource "aws_instance" "web" {
     aws_security_group.pri_sg.id
   ]
   subnet_id = aws_subnet.terra_private_subnet1.id
+  user_data =  <<EOF
+		#! /bin/bash
+    sudo yum update -y
+    sudo amazon-linux-extras install epel
+    sudo yum install nginx -y
+    sudo service nginx start
+	EOF
 
   tags = {
     Name = "HelloWorld"
   }
+}
+
+resource "aws_lb" "ALB" {
+  name               = "ALB"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.alb_sg.id]
+  subnets            = [aws_subnet.terra_public_subnet1.id, aws_subnet.terra_public_subnet2.id]
+}
+
+resource "aws_lb_target_group" "albtarget" {
+  name     = "terraALBtarget"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.terra_VPC.id
+}
+
+resource "aws_lb_listener" "ALB_listener" {
+  load_balancer_arn = aws_lb.ALB.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.albtarget.arn
+  }
+}
+
+resource "aws_lb_target_group_attachment" "ALB_target_attatchment" {
+  target_group_arn = aws_lb_target_group.albtarget.arn
+  target_id        = aws_instance.web.id
+  port             = 80
 }
