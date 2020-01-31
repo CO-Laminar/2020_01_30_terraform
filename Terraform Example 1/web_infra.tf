@@ -1,10 +1,10 @@
-# Line 10 : Recommended for now to specify boolean values for variables as the strings "true" and "false" 
-
+# Keypair
 resource "aws_key_pair" "web_admin" {
   key_name = "web_admin"
   public_key = file("~/.ssh/web_admin.pub")
 }
 
+# Line 9 : Recommended for now to specify boolean values for variables as the strings "true" and "false" 
 resource "aws_vpc" "terra_VPC" {
   cidr_block = "20.0.0.0/16"
   enable_dns_hostnames = "true" 
@@ -15,6 +15,7 @@ resource "aws_vpc" "terra_VPC" {
   }
 }
 
+# 2 Public subnet + 2 Private subnet 
 resource "aws_subnet" "terra_public_subnet1" {
   vpc_id = aws_vpc.terra_VPC.id
   cidr_block = "20.0.1.0/24"
@@ -55,6 +56,7 @@ resource "aws_subnet" "terra_private_subnet2" {
   }
 }
 
+# Internet gateway + Elastic IP + NAT gateway
 resource "aws_internet_gateway" "IGW" {
   vpc_id = aws_vpc.terra_VPC.id
 
@@ -76,6 +78,7 @@ resource "aws_nat_gateway" "NGW" {
   }
 }
 
+# Route table + Route association
 resource "aws_route_table" "pub_route" {
   vpc_id = aws_vpc.terra_VPC.id
   route {
@@ -120,6 +123,7 @@ resource "aws_route_table_association" "pri_route_association2" {
   route_table_id = aws_route_table.pri_route.id
 }
 
+# Security groups
 resource "aws_security_group" "pri_sg" {
   name = "SSH, HTTP, HTTPS"
   description = "Allow SSH, HTTP, HTTPS port from all"
@@ -174,6 +178,7 @@ resource "aws_security_group" "alb_sg" {
   }
 }
 
+# Instance 
 resource "aws_instance" "bastion" {
   ami           = "ami-05c64f7b4062b0a21"
   instance_type = "t2.micro"
@@ -210,6 +215,7 @@ resource "aws_instance" "web" {
   }
 }
 
+# Application Load Balancer
 resource "aws_lb" "ALB" {
   name               = "ALB"
   internal           = false
