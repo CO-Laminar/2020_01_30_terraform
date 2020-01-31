@@ -1,0 +1,18 @@
+---
+- name: lets nginx install  # ansible-playbook -i hosts nginx.yml (-i : Inventory 파일명 지정 지시어)
+  hosts: all
+  become: true # Inventory에 접속한 Linux 사용자가 sudo 권한으로 수행
+  pre_tasks:
+    - name: upgrade all packages
+      raw : 'sudo yum update -y'
+    - name : epel install
+      raw : 'sudo amazon-linux-extras install epel -y'
+  tasks:
+    - name: nginx package install
+      yum :
+        name: nginx
+        state: installed
+  post_tasks:
+    - service:
+        name: nginx
+        state: started
