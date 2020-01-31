@@ -1,0 +1,8 @@
+---
+- name: debug module test
+  hosts: all
+  become: true # Inventory에 접속한 Linux 사용자가 sudo 권한으로 수행
+  tasks:
+    - name: debug test
+      debug :
+        msg: "Hello, World"
