@@ -1,0 +1,7 @@
+---
+- name: input your variable
+  hosts: "{{ input_host }}"
+  gather_facts : no # 원격 대상 시스템의 Host name, CPU, Memory 정보 등을 수집하는 setup 모듈 (시간 단축)
+  tasks:
+    - name: 1. Test Connection
+      ping:
