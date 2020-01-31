@@ -11,10 +11,23 @@ source : https://www.44bits.io/ko/post/terraform_introduction_infrastrucute_as_c
 - Create VPC, 4 subnets(2 public/ 2 private), 1 internet gateway, 1 NAT gateway, 2 instance (1 public / 1 private), 1 ALB, 2 Security group
 - Nginx install
 
-Be care
+* Be care
 - Security group -> egress (egress is not default value)
 - ALB target group -> name (only alphanumeric characters and hyphens allowed in "name")
 
 [Example 2]
 - Simple version of Exapmle 1 for test
 - Create VPC, 1 Subnets, 1 Internet gateway, 1 Instance, 1 Security group
+
+
+# 2020_01_31_Ansible
+
+source1 : https://jojoldu.tistory.com/432
+source2 : https://jojoldu.tistory.com/433
+source3 : https://jojoldu.tistory.com/438
+
+[Tutorial]
+
+* 시작하기 전
+- VPC, Subnet(public), Security Group, Instance, Internet gateway 각각 1개씩 있다고 가정(Server)
+- Terraform으로 실습 환경 생성하기 (기존의 Subnet 1개, Security group(ICMP, SSH, HTTP, HTTPS) 1개를 적용한 2대의 Instance(Host) 생성)
