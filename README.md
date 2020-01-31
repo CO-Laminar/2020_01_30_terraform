@@ -22,9 +22,9 @@ source : https://www.44bits.io/ko/post/terraform_introduction_infrastrucute_as_c
 
 # 2020_01_31_Ansible
 
-source1 : https://jojoldu.tistory.com/432 \n
-source2 : https://jojoldu.tistory.com/433 \n
-source3 : https://jojoldu.tistory.com/438 \n
+source1 : https://jojoldu.tistory.com/432  
+source2 : https://jojoldu.tistory.com/433  
+source3 : https://jojoldu.tistory.com/438  
 
 [Tutorial]
 
