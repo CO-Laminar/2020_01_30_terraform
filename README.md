@@ -9,6 +9,11 @@ source : https://www.44bits.io/ko/post/terraform_introduction_infrastrucute_as_c
 
 [Example 1]
 - Create VPC, 4 subnets(2 public/ 2 private), 1 internet gateway, 1 NAT gateway, 2 instance (1 public / 1 private), 1 ALB, 2 Security group
+- Nginx install
+
+Be care
+- Security group -> egress (egress is not default value)
+- ALB target group -> name (only alphanumeric characters and hyphens allowed in "name")
 
 [Example 2]
 - Simple version of Exapmle 1 for test
